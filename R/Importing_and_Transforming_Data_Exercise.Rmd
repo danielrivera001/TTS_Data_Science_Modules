@@ -1,0 +1,121 @@
+---
+title: "Importing_and_Transforming_Data"
+author: "Daniel_Rivera"
+date: "October 7, 2022"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+#Exercise 1
+#List all example files available with the readr library.
+#use the readr_example to view all of the example files stored in the libarary
+library(readr)
+readr_example()
+```
+
+```{r}
+#Exercise 2
+#Read the mtcars.csv file.
+#This can be achieved using the csv read
+mtcars <- read_csv(readr_example("mtcars.csv"))
+mtcars
+```
+```{r}
+#Exercise 4
+#Read the example.log file.
+#Use the same methods as above
+example.log <- read_log(readr_example("example.log"))
+example.log
+```
+
+```{r}
+#Exercise 5
+#List all sheets in readxl_example("datasets.xlsx").
+#Import readxl library
+library(readxl)
+#Show all of the example files
+readxl_example()
+```
+```{r}
+#Use the excel sheets function to read all of the sheets in the datasets file
+sheets <- excel_sheets(readxl_example("datasets.xlsx"))
+sheets
+```
+```{r}
+#Exercise 6
+#Read data from the last sheet
+#This can be accomplished by using the read_excel along with specifying the sheet
+read_excel(readxl_example("datasets.xlsx"), sheet = "quakes")
+```
+```{r}
+#Exercise 7
+#Load the dplyr package. Install and load the AER package and run the command #data("Fertility") which loads the dataset Fertility to your workspace. Take a #glimpse() at the data.
+library(dplyr)
+library(AER)
+data(Fertility, package="AER")
+f <- Fertility
+glimpse(f)
+```
+
+
+```{r}
+#Exercise 8
+#Select rows 35 to 50 and print to console its age and work entry.
+#Use matrix form and vector form to retrieve specific rows and columns
+f[35:50, c(4,8)]
+```
+Exercise 9
+Select the last row in the dataset and print to console.
+
+```{r}
+#Use the tail feature
+tail(f,1)
+```
+Exercise 10
+Count how many women proceeded to have a third child.
+
+```{r}
+count(f, morekids == "yes")[2,2]
+```
+
+Exercise 11
+There are four possible gender combinations for the first two children. Which is the most common?
+```{r}
+#Specify each possible combination
+mm <- count(f, gender1 == "male" & gender2 == "male")[2,2]
+
+mf <- count(f, gender1 == "male" & gender2 == "female")[2,2]
+
+fm <- count(f, gender1 == "female" & gender2 == "male")[2,2]
+
+ff <- count(f, gender1 == "female" & gender2 == "female")[2,2]
+#Use ifi else if statement comparing all possible combinations then print the answer 
+if(mm > mf & mm > fm & mm > fm & mm > ff){
+  print(paste("Male, Male is the most common:", mm))
+} else if (mf > mm & mf > fm & mf > ff){
+  print ("Male, Female is the most common:", mf)
+} else if (fm > mm & fm > mf & fm > ff){
+print ("Female, Male is the most common:", fm)
+} else {
+print ("Female, Female is the most common:", ff)
+  }
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
