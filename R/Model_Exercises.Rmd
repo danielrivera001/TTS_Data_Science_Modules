@@ -1,0 +1,86 @@
+---
+title: "Model_Exercises"
+author: "Daniel_Rivera"
+date: "October 14, 2022"
+output: html_document
+---
+
+Exercise 1
+Familiarize yourself with the heights data set provided with the modelr package.
+```{r}
+#import modelr library and extract the heights file
+library(modelr)
+modelr::heights
+```
+
+Exercise 2
+Create a list of formulas for modeling income with:
+*height
+*height * weight
+*linear combination of all variables
+
+```{r}
+set.seed(1453)
+#se the no. of observations
+N <- 100 
+#specify weight( in kg)
+weight <- runif(n=N, min=60, max=100)
+#specify height (in cm)
+height <- 2.2*weight + rnorm(n=N, mean=0, sd=10)
+#plot the weight vs height
+plot(weight, height, pch=19, xlab='Weight (kg)', ylab='Height (cm)', col='grey')
+
+## Using a Linear model fit
+fit <- lm(height ~ weight)
+
+## Plot the  model fit
+plot(weight, height, pch=19,main= "Linear Model Fit of Weight vs. Height",xlab='Weight (kg)', ylab='Height (cm)', col='grey')
+lines(weight, predict(fit), col='black', lwd=3)
+```
+
+Exercise 3
+From the data, remove rows containing NA's. Fit the linear model with the formulas from exercise 2.
+```{r}
+#import necessary library to filter data
+library(tidyr)
+#Check the complete dataframe to determine if there are any NA's:
+is.na(heights)
+#Delete all the celse with NA
+height.filtered <- na.omit(heights)
+height.filtered
+set.seed(1453)
+#se the no. of observations
+N <- 100 
+#specify weight( in kg)
+weight1 <- runif(n=N, min=60, max=100)
+#specify height (in cm)
+height1 <- 2.2*weight + rnorm(n=N, mean=0, sd=10)
+#plot the weight vs height
+plot(weight1, height1, pch=19, xlab='Weight (kg)', ylab='Height (cm)', col='grey')
+
+## Using a Linear model fit
+fit1 <- lm(height1 ~ weight1)
+
+## Plot the  model fit
+plot(weight1, height1, pch=19,main= "Linear Model Fit of Weight vs. Height",xlab='Weight (kg)', ylab='Height (cm)', col='grey')
+lines(weight1, predict(fit1), col='black', lwd=3)
+```
+
+Exercise 4
+For each fit, calculate RMSE.
+```{r}
+#First take a summary of our linear fit:
+summary(fit)
+#Calculate the RMSE by taking the mean of the square root of the residuals of the fit
+sqrt(mean(fit$residuals^2))
+```
+
+Exercise 5
+For each model, add residuals to the data and plot their distribution. (Hint: use lift_dl().)
+```{r}
+#res <- resid(fit1)
+#plot(fit1, res, pch=19,main= "Linear Model Fit vs. Residuals",xlab='Model', ylab='Residuals', col='grey')
+#lines(fit1, predict(fit1), col='black', lwd=3)
+
+```
+
